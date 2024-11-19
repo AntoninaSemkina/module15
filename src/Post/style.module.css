@@ -1,0 +1,77 @@
+.post {
+  padding: 25px;
+  width: 1000px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(100, 195, 240);
+  margin: 20px auto;
+  border-radius: 10px;
+}
+.postId {
+  font-size: 50px;
+}
+.greenPost {
+  padding: 25px;
+  width: 1000px;
+  display: flex;
+  flex-direction: column;
+  background-color: lightgreen;
+  margin: 20px auto;
+  border-radius: 10px;
+}
+.postMenu {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+}
+.hidden {
+  display: none;
+}
+.modal {
+  display: flex;
+  flex-direction: column;
+  margin: 20px auto;
+}
+.editTitle {
+  display: flex;
+  margin: auto;
+}
+.editChange {
+  display: flex;
+  height: 200px;
+}
+.btnMenu {
+  margin: auto;
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+}
+.btnEdit,
+.btnFav,
+.btnDelete {
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+}
+.editSave {
+  background-color: chartreuse;
+  border-radius: 10px;
+}
+.editCancel {
+  background-color: orange;
+}
+.btnDelete {
+  background-color: rgb(227, 55, 55);
+}
+@media (max-width: 1440px) {
+  .post,
+  .greenPost {
+    width: 80%;
+  }
+}
+@media (max-width: 390px) {
+  .post,
+  .greenPost {
+    width: 80%;
+  }
+}
