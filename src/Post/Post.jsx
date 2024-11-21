@@ -21,7 +21,7 @@
 // };
 
 // export default Post;
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import style from "./style.module.css";
 
 const Post = ({ post, deletePost, favoritePost, updatePost }) => {
@@ -29,10 +29,31 @@ const Post = ({ post, deletePost, favoritePost, updatePost }) => {
   const [showModal, setShowModal] = useState(false);
   const [editedName, setEditedName] = useState(post.name);
 
+  const modalRef = useRef(null);
+
   const handleEdit = () => {
     updatePost(post.id, editedName);
     setShowModal(false);
   };
+
+  // Закрыть модальное окно при клике вне его
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setShowModal(false);
+      }
+    };
+
+    if (showModal) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showModal]);
 
   return (
     <div className={post.fav ? style.greenPost : style.post}>
@@ -54,23 +75,24 @@ const Post = ({ post, deletePost, favoritePost, updatePost }) => {
       </div>
 
       {showModal && (
-        <div className={style.modal}>
-          <div className={style.editTitle}>Edit Post</div>
-          <input
-            className={style.editChange}
-            type="text"
-            value={editedName}
-            onChange={(e) => setEditedName(e.target.value)}
-          />
-          <button className={style.editSave} onClick={handleEdit}>
-            Save
-          </button>
-          <button
-            className={style.editCancel}
-            onClick={() => setShowModal(false)}
-          >
-            Cancel
-          </button>
+        <div className={style.modalOverlay}>
+          <div className={style.modal} ref={modalRef}>
+            <div className={style.editTitle}>Edit Post</div>
+            <textarea
+              className={style.editChange}
+              value={editedName}
+              onChange={(e) => setEditedName(e.target.value)}
+            />
+            <button className={style.editSave} onClick={handleEdit}>
+              Save
+            </button>
+            <button
+              className={style.editCancel}
+              onClick={() => setShowModal(false)}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       )}
     </div>
